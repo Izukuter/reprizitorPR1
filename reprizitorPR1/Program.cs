@@ -7,27 +7,41 @@ namespace reprizitorPR1
         static void Main(string[] args)
         {
             Console.WriteLine("строки с преобладанием положительных элементов ");
+            int n, m;
+            do
+            {
+                Console.Write("Введите количество строк (n, от 1 до 999): ");
+                string inputN = Console.ReadLine();
+                if (!int.TryParse(inputN, out n) || n < 1 || n > 999)
+                {
+                    Console.WriteLine("❌ Ошибка: введите целое число от 1 до 999.");
+                    n = 0;
+                }
+            } while (n < 1 || n > 999);
 
-            Console.Write("Введите количество строк (n): ");
-            int n = int.Parse(Console.ReadLine());
-            Console.Write("Введите количество столбцов (m): ");
-            int m = int.Parse(Console.ReadLine());
+            do
+            {
+                Console.Write("Введите количество столбцов (m, от 1 до 999): ");
+                string inputM = Console.ReadLine();
 
-            
+                if (!int.TryParse(inputM, out m) || m < 1 || m > 999)
+                {
+                    Console.WriteLine("Ошибка: введите целое число от 1 до 999.");
+                    m = 0;
+                }
+            }while (m < 1 || m > 999);
+
+         
             double[,] matrix = new double[n, m];
             Random rand = new Random();
 
-            // Автоматически заполняем матрицу 
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    // Генерируем случайное целое число от -9 до 9
                     matrix[i, j] = rand.Next(-9, 10); 
                 }
             }
-
-            // Выводим сгенерированную матрицу для наглядности
             Console.WriteLine("\nСгенерированная матрица:");
             for (int i = 0; i < n; i++)
             {
@@ -35,12 +49,11 @@ namespace reprizitorPR1
                 {
                     Console.Write($"{matrix[i, j],4} "); // 4 символа на число для выравнивания
                 }
-                Console.WriteLine(); // Переход на новую строку 
+                Console.WriteLine(); 
             }
 
             Console.WriteLine("\n=== Результат анализа ===");
-            int strociCount = 0; // Счётчик строк
-            // Проходимся по матрице
+            int strociCount = 0; 
             for (int i = 0; i < n; i++)
             {
                 int polCount = 0;     
@@ -52,7 +65,6 @@ namespace reprizitorPR1
                     else if (matrix[i, j] < 0)
                         otrizCount++;
                 }
-                // положительных элементов больше чем отрицательных
                 if (polCount > otrizCount)
                 {
                     Console.WriteLine($"Строка {i + 1} (индекс {i}): положительных = {polCount}, отрицательных = {otrizCount}");
